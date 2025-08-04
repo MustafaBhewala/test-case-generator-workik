@@ -58,7 +58,7 @@ export function FileBrowserPage() {
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading repository files...</p>
+          <p className="text-white">Loading repository files...</p>
         </div>
       </div>
     );
@@ -67,17 +67,17 @@ export function FileBrowserPage() {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-bold text-white mb-2">
           {owner}/{repo}
         </h1>
-        <p className="text-gray-600 mb-4">
+        <p className="text-white mb-4">
           Select files to generate test cases for.
         </p>
         
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2 text-sm text-gray-600">
+          <div className="flex items-center space-x-2 text-sm text-white">
             <span>Path:</span>
-            <span className="font-mono bg-gray-100 px-2 py-1 rounded">
+            <span className="font-mono bg-gray-800 px-2 py-1 rounded text-white">
               /{currentPath || 'root'}
             </span>
           </div>
@@ -100,13 +100,13 @@ export function FileBrowserPage() {
         </div>
       )}
 
-      <div className="bg-white border border-gray-200 rounded-lg">
+      <div className="bg-gray-800 border border-gray-700 rounded-lg">
         {currentPath && (
           <button
             onClick={navigateBack}
-            className="w-full flex items-center space-x-2 p-4 border-b border-gray-200 hover:bg-gray-50 transition-colors"
+            className="w-full flex items-center space-x-2 p-4 border-b border-gray-700 hover:bg-gray-700 transition-colors text-white"
           >
-            <Folder className="h-5 w-5 text-blue-600" />
+            <Folder className="h-5 w-5 text-blue-400" />
             <span>..</span>
           </button>
         )}
@@ -114,18 +114,18 @@ export function FileBrowserPage() {
         {files.map((file, index) => (
           <div
             key={index}
-            className="flex items-center justify-between p-4 border-b border-gray-200 last:border-b-0 hover:bg-gray-50 transition-colors"
+            className="flex items-center justify-between p-4 border-b border-gray-700 last:border-b-0 hover:bg-gray-700 transition-colors"
           >
             <button
               onClick={() => handleFileSelect(file)}
               className="flex items-center space-x-3 flex-1 text-left"
             >
               {file.type === 'dir' ? (
-                <Folder className="h-5 w-5 text-blue-600" />
+                <Folder className="h-5 w-5 text-blue-400" />
               ) : (
-                <File className="h-5 w-5 text-gray-600" />
+                <File className="h-5 w-5 text-gray-400" />
               )}
-              <span className="text-gray-900">{file.name}</span>
+              <span className="text-white">{file.name}</span>
             </button>
             
             <div className="flex items-center space-x-2">
@@ -134,11 +134,11 @@ export function FileBrowserPage() {
                   type="checkbox"
                   checked={selectedFiles.some(f => f.path === file.path)}
                   onChange={() => handleFileSelect(file)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-gray-600 text-blue-400 focus:ring-blue-500 bg-gray-700"
                 />
               )}
               {file.type === 'dir' && (
-                <ChevronRight className="h-4 w-4 text-gray-400" />
+                <ChevronRight className="h-4 w-4 text-gray-300" />
               )}
             </div>
           </div>

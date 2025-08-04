@@ -53,8 +53,8 @@ export function RepositoriesPage() {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your repositories...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400 mx-auto mb-4"></div>
+          <p className="text-gray-300">Loading your repositories...</p>
         </div>
       </div>
     );
@@ -63,8 +63,8 @@ export function RepositoriesPage() {
   if (error) {
     return (
       <div className="text-center py-12">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
-          <p className="text-red-600 mb-4">{error}</p>
+        <div className="bg-red-900 border border-red-700 rounded-lg p-6 max-w-md mx-auto">
+          <p className="text-red-300 mb-4">{error}</p>
           <button
             onClick={fetchRepositories}
             className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
@@ -79,10 +79,10 @@ export function RepositoriesPage() {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+        <h1 className="text-3xl font-bold text-white mb-4">
           Your Repositories
         </h1>
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-300 mb-6">
           Select a repository to browse files and generate test cases.
         </p>
         
@@ -93,7 +93,7 @@ export function RepositoriesPage() {
             placeholder="Search repositories..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-800 text-white placeholder-gray-400"
           />
         </div>
       </div>
@@ -102,10 +102,10 @@ export function RepositoriesPage() {
         {filteredRepos.length === 0 ? (
           <div className="text-center py-12">
             <Book className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-white mb-2">
               No repositories found
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-300">
               {searchTerm ? 'Try adjusting your search terms.' : 'You don\'t have any repositories yet.'}
             </p>
           </div>
@@ -114,12 +114,12 @@ export function RepositoriesPage() {
             <Link
               key={repo.id}
               to={`/repository/${repo.owner.login}/${repo.name}`}
-              className="block bg-white border border-gray-200 rounded-lg p-6 hover:border-blue-300 hover:shadow-md transition-all"
+              className="block bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center space-x-2 mb-2">
-                    <h3 className="text-lg font-semibold text-blue-600 truncate">
+                    <h3 className="text-lg font-semibold text-blue-400 truncate">
                       {repo.name}
                     </h3>
                     {repo.private && (
@@ -128,15 +128,15 @@ export function RepositoriesPage() {
                   </div>
                   
                   {repo.description && (
-                    <p className="text-gray-600 mb-3 line-clamp-2">
+                    <p className="text-gray-300 mb-3 line-clamp-2">
                       {repo.description}
                     </p>
                   )}
                   
-                  <div className="flex items-center space-x-4 text-sm text-gray-500">
+                  <div className="flex items-center space-x-4 text-sm text-gray-400">
                     {repo.language && (
                       <div className="flex items-center space-x-1">
-                        <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-blue-400"></div>
                         <span>{repo.language}</span>
                       </div>
                     )}

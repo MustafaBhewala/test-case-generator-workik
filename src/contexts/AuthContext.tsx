@@ -19,9 +19,53 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setToken(storedToken);
       fetchUser(storedToken);
     } else {
-      setIsLoading(false);
+      // Check if we're returning from OAuth
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+      
+      if (code && window.location.pathname === '/auth/callback') {
+        handleOAuthCallback(code);
+      } else {
+        setIsLoading(false);
+      }
     }
   }, []);
+
+  const handleOAuthCallback = async (code: string) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/auth/github/callback`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const { access_token, user } = data;
+        
+        localStorage.setItem('github_token', access_token);
+        setToken(access_token);
+        
+        if (user) {
+          setUser(user);
+        } else {
+          await fetchUser(access_token);
+        }
+        
+        // Redirect to repositories page
+        window.location.href = '/repositories';
+      } else {
+        throw new Error('Failed to exchange code for token');
+      }
+    } catch (error) {
+      console.error('OAuth callback error:', error);
+      window.location.href = '/?error=oauth_failed';
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const fetchUser = async (authToken: string) => {
     try {

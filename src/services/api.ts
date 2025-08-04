@@ -53,8 +53,9 @@ class ApiService {
     repo: string,
     path: string
   ): Promise<string> {
-    const response = await axios.get(
-      `${API_BASE_URL}/github/repos/${owner}/${repo}/contents/${path}`,
+    const response = await axios.post(
+      `${API_BASE_URL}/github/repos/${owner}/${repo}/file-content`,
+      { path },
       {
         headers: this.getHeaders(token),
       }

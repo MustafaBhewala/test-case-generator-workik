@@ -18,6 +18,15 @@ export function TestGeneratorPage() {
   const [generatingCode, setGeneratingCode] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const getComplexityColor = (complexity: string) => {
+    switch (complexity.toLowerCase()) {
+      case 'low': return 'bg-green-900 text-green-300';
+      case 'medium': return 'bg-yellow-900 text-yellow-300';
+      case 'high': return 'bg-red-900 text-red-300';
+      default: return 'bg-gray-700 text-gray-300';
+    }
+  };
+
   useEffect(() => {
     if (selectedFiles.length > 0 && token && owner && repo) {
       generateSummaries();
@@ -96,15 +105,6 @@ export function TestGeneratorPage() {
     }
   };
 
-  const getComplexityColor = (complexity: string) => {
-    switch (complexity) {
-      case 'low': return 'bg-green-100 text-green-800';
-      case 'medium': return 'bg-yellow-100 text-yellow-800';
-      case 'high': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
   if (selectedFiles.length === 0) {
     return (
       <div className="text-center py-12">
@@ -118,17 +118,17 @@ export function TestGeneratorPage() {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-bold text-white mb-2">
           Generate Test Cases
         </h1>
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-300 mb-4">
           AI-generated test case suggestions for {selectedFiles.length} selected files in {owner}/{repo}.
         </p>
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-          <p className="text-red-600">{error}</p>
+        <div className="bg-red-900 border border-red-700 rounded-lg p-4 mb-6">
+          <p className="text-red-300">{error}</p>
         </div>
       )}
 
@@ -136,7 +136,7 @@ export function TestGeneratorPage() {
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Generating test case summaries...</p>
+            <p className="text-gray-300">Generating test case summaries...</p>
           </div>
         </div>
       ) : (
@@ -147,13 +147,13 @@ export function TestGeneratorPage() {
               const isGenerating = generatingCode === summary.id;
               
               return (
-                <div key={summary.id} className="bg-white border border-gray-200 rounded-lg p-6">
+                <div key={summary.id} className="bg-gray-800 border border-gray-700 rounded-lg p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      <h3 className="text-lg font-semibold text-white mb-2">
                         {summary.title}
                       </h3>
-                      <p className="text-gray-600 mb-3">{summary.description}</p>
+                      <p className="text-gray-300 mb-3">{summary.description}</p>
                       
                       <div className="flex items-center space-x-4 text-sm">
                         <span className="flex items-center space-x-1">
@@ -204,9 +204,9 @@ export function TestGeneratorPage() {
                   </div>
                   
                   {generatedTest && (
-                    <div className="mt-4 border-t border-gray-200 pt-4">
+                    <div className="mt-4 border-t border-gray-700 pt-4">
                       <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-medium text-gray-900">
+                        <h4 className="font-medium text-white">
                           Generated Test: {generatedTest.filename}
                         </h4>
                         <button
@@ -219,14 +219,14 @@ export function TestGeneratorPage() {
                             a.click();
                             URL.revokeObjectURL(url);
                           }}
-                          className="flex items-center space-x-1 text-gray-600 hover:text-gray-900 text-sm"
+                          className="flex items-center space-x-1 text-gray-300 hover:text-white text-sm"
                         >
                           <Download className="h-4 w-4" />
                           <span>Download</span>
                         </button>
                       </div>
-                      <pre className="bg-gray-50 p-4 rounded-lg overflow-x-auto text-sm">
-                        <code>{generatedTest.code}</code>
+                      <pre className="code-preview bg-gray-900 border border-gray-700 p-4 rounded-lg overflow-x-auto text-sm font-mono">
+                        <code className="text-gray-100 leading-relaxed">{generatedTest.code}</code>
                       </pre>
                     </div>
                   )}

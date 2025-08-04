@@ -1,53 +1,155 @@
-# Test Case Generator - Workik AI Assignment
+# 🧪 AI Test Case Generator
 
-A full-stack application that integrates with GitHub and uses AI to generate intelligent test cases for your code.
+> **Intelligent test case generation powered by AI and seamlessly integrated with GitHub**
 
-## 🚀 Features
+A modern full-stack application that automatically generates comprehensive test cases for your codebase using Google Gemini AI, with complete GitHub integration for repository management and pull request automation.
 
-- **GitHub Integration**: OAuth authentication and repository browsing
-- **AI-Powered Test Generation**: Uses Google Gemini AI to generate comprehensive test cases
-- **Multi-Framework Support**: Jest, JUnit, pytest, NUnit, and more
-- **Interactive File Browser**: Select multiple files for batch test generation
-- **Test Case Summaries**: Preview test cases before generating full code
-- **Pull Request Creation**: Automatically create PRs with generated test files
-- **Clean UI/UX**: Modern, responsive design with Tailwind CSS
+![React](https://img.shields.io/badge/React-19-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Node.js](https://img.shields.io/badge/Node.js-18+-green)
+![AI](https://img.shields.io/badge/AI-Google%20Gemini-orange)
 
-## 🛠️ Tech Stack
+## ✨ Key Features
 
-### Frontend
-- **React 19** with TypeScript
-- **Vite** for fast development and building
-- **Tailwind CSS** for styling
-- **React Router** for routing
-- **Lucide React** for icons
-- **Axios** for API calls
+### 🔗 **GitHub Integration**
+- OAuth authentication with GitHub
+- Repository browsing and file navigation
+- Automatic pull request creation with generated tests
 
-### Backend
-- **Node.js** with Express and TypeScript
-- **Google Gemini AI** for test case generation
-- **GitHub API** integration
-- **CORS** enabled for frontend communication
+### 🤖 **AI-Powered Generation**
+- Google Gemini AI for intelligent test case creation
+- Support for multiple testing frameworks (Jest, JUnit, pytest, NUnit, etc.)
+- Context-aware test generation based on code analysis
 
-## 📦 Installation
+### 📁 **Multi-File Processing**
+- Select and process multiple files simultaneously
+- Batch test case generation
+- Framework auto-detection based on file types
+
+### 🎨 **Modern UI/UX**
+- Clean, dark-themed interface
+- Responsive design for all devices
+- Interactive file browser with search functionality
+- Real-time loading states and error handling
+
+## 🛠️ Technology Stack
+
+| Category | Technologies |
+|----------|-------------|
+| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS, React Router |
+| **Backend** | Node.js, Express, TypeScript |
+| **AI Integration** | Google Gemini API |
+| **Authentication** | GitHub OAuth |
+| **Styling** | Tailwind CSS, Lucide React Icons |
+| **HTTP Client** | Axios |
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ and npm
-- GitHub OAuth App (for authentication)
+- Node.js 18 or higher
+- npm or yarn package manager
+- GitHub OAuth App credentials
 - Google Gemini API key
 
-### 1. Clone and Setup
-```bash
-git clone <repository-url>
-cd WorkikTask
-npm install
-```
+### Installation
 
-### 2. Backend Setup
-```bash
-cd backend
-npm install
-cp .env.example .env
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/MustafaBhewala/test-case-generator-workik.git
+   cd test-case-generator-workik
+   ```
+
+2. **Install frontend dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Setup backend**
+   ```bash
+   cd backend
+   npm install
+   cp .env.example .env
+   ```
+
+4. **Configure environment variables**
+   
+   Edit `backend/.env`:
+   ```env
+   PORT=3001
+   NODE_ENV=development
+   FRONTEND_URL=http://localhost:5173
+   
+   # GitHub OAuth (get from https://github.com/settings/developers)
+   GITHUB_CLIENT_ID=your_github_client_id
+   GITHUB_CLIENT_SECRET=your_github_client_secret
+   
+   # Google Gemini AI (get from https://aistudio.google.com/)
+   GEMINI_API_KEY=your_gemini_api_key
+   
+   # JWT Secret (generate with: node -e "console.log(require('crypto').randomBytes(64).toString('hex'))")
+   JWT_SECRET=your_jwt_secret_here
+   ```
+
+   Create `frontend/.env`:
+   ```env
+   VITE_API_URL=http://localhost:3001/api
+   VITE_GITHUB_CLIENT_ID=your_github_client_id
+   ```
+
+5. **Start the development servers**
+   
+   **Backend** (Terminal 1):
+   ```bash
+   cd backend
+   npm run dev
+   ```
+   
+   **Frontend** (Terminal 2):
+   ```bash
+   npm run dev
+   ```
+
+6. **Open the application**
+   
+   Navigate to `http://localhost:5173` in your browser
+
+## 📖 Usage Guide
+
+### 1. **Authentication**
+- Click "Login with GitHub" to authenticate
+- Grant necessary permissions for repository access
+
+### 2. **Repository Selection**
+- Browse your GitHub repositories
+- Use the search function to find specific repositories
+- Click on a repository to explore its files
+
+### 3. **File Selection**
+- Navigate through the repository file structure
+- Select multiple code files (supports .js, .ts, .py, .java, .cs, .go)
+- Click "Generate Tests" to proceed
+
+### 4. **Test Generation**
+- Review AI-generated test case summaries
+- Each summary shows framework, complexity, and estimated lines
+- Click "Generate Code" on any summary to create the full test
+
+### 5. **Code Review & Download**
+- Preview the generated test code with syntax highlighting
+- Download individual test files
+- Optionally create a pull request with all generated tests
+
+## 🧪 Supported Testing Frameworks
+
+| Language | Framework | File Extensions |
+|----------|-----------|----------------|
+| JavaScript/TypeScript | Jest, Mocha | `.js`, `.ts`, `.jsx`, `.tsx` |
+| Python | pytest, unittest | `.py` |
+| Java | JUnit | `.java` |
+| C# | NUnit | `.cs` |
+| Go | testing | `.go` |
+
+## 📁 Project Structure
 
 Edit `backend/.env` with your credentials:
 ```env

@@ -53,14 +53,19 @@ router.get('/repos/:owner/:repo/contents', async (req, res, next) => {
 });
 
 // Get file content
-router.get('/repos/:owner/:repo/contents/:path(*)', async (req, res, next) => {
+router.post('/repos/:owner/:repo/file-content', async (req, res, next) => {
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
     if (!token) {
       return res.status(401).json({ error: 'Authorization token required' });
     }
 
-    const { owner, repo, path } = req.params;
+    const { owner, repo } = req.params;
+    const { path } = req.body;
+    
+    if (!path) {
+      return res.status(400).json({ error: 'File path is required' });
+    }
     
     const content = await githubService.getFileContent(token, owner, repo, path);
     res.json({ content });

@@ -37,7 +37,7 @@ export class AIService {
   async generateTestCaseSummaries(request: AIGenerationRequest): Promise<TestCaseSummary[]> {
     const { language, framework } = this.detectLanguageAndFramework(request.files);
     
-    const model = this.genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
     
     const fileContents = request.files
       .filter(f => f.content)
@@ -75,7 +75,6 @@ Return only valid JSON array of test case summaries, no additional text.
       // Fallback: generate default summaries
       return this.generateDefaultSummaries(framework);
     } catch (error) {
-      console.error('AI generation error:', error);
       return this.generateDefaultSummaries(framework);
     }
   }
@@ -84,7 +83,7 @@ Return only valid JSON array of test case summaries, no additional text.
     files: GitHubFile[],
     summary: TestCaseSummary
   ): Promise<GeneratedTestCase> {
-    const model = this.genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
     
     const fileContents = files
       .filter(f => f.content)
@@ -130,7 +129,6 @@ Return only the test code, no additional explanations.
         language: this.getLanguageFromFramework(summary.framework)
       };
     } catch (error) {
-      console.error('Test code generation error:', error);
       throw new Error('Failed to generate test code');
     }
   }

@@ -183,4 +183,7 @@ class UserManager {
   }
 }
 
-module.exports = UserManager;
+// Export for Node.js environments
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { UserManager, User };
+}

@@ -3,8 +3,15 @@ import { AIService } from '../services/ai';
 import { GitHubService } from '../services/github';
 
 const router = Router();
-const aiService = new AIService();
 const githubService = new GitHubService();
+
+// Lazy instantiation of AIService
+const getAIService = () => {
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error('GEMINI_API_KEY environment variable is required. Please add it to your .env file.');
+  }
+  return new AIService();
+};
 
 // Generate test case summaries
 router.post('/generate-summaries', async (req, res, next) => {
@@ -46,7 +53,7 @@ router.post('/generate-summaries', async (req, res, next) => {
       return res.status(400).json({ error: 'No supported code files found' });
     }
 
-    const summaries = await aiService.generateTestCaseSummaries({ files: codeFiles });
+    const summaries = await getAIService().generateTestCaseSummaries({ files: codeFiles });
     
     res.json({
       summaries,
@@ -88,7 +95,7 @@ router.post('/generate-test-code', async (req, res, next) => {
       })
     );
 
-    const testCase = await aiService.generateTestCode(filesWithContent, summary);
+    const testCase = await getAIService().generateTestCode(filesWithContent, summary);
     
     res.json(testCase);
   } catch (error) {

@@ -86,4 +86,7 @@ class Calculator {
   }
 }
 
-module.exports = Calculator;
+// Export for Node.js environments
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { Calculator };
+}
