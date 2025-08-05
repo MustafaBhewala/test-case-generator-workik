@@ -12,7 +12,7 @@
 		{
 			"label": "Run Backend",
 			"type": "shell",
-			"command": "cd backend && npm run dev",
+			"command": "cd backend; npm run dev",
 			"group": "build",
 			"isBackground": true,
 			"problemMatcher": []
