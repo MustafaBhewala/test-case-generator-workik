@@ -7,9 +7,25 @@
       "config": {
         "distDir": "dist"
       }
+    },
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/auth/(.*)",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/github/(.*)",
+      "dest": "/api/github.js"
+    },
+    {
+      "src": "/api/ai/(.*)",
+      "dest": "/api/ai.js"
+    },
     {
       "src": "/assets/(.*)",
       "dest": "/assets/$1"
