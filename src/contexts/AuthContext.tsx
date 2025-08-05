@@ -82,10 +82,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const login = () => {
     const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID || 'your_github_client_id';
+    console.log('🔧 Debug - Client ID being used:', clientId);
+    console.log('🔧 Debug - All env vars:', import.meta.env);
     const redirectUri = `${window.location.origin}/auth/callback`;
     const scope = 'repo user:email';
     
     const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
+    console.log('🔧 Debug - Auth URL:', authUrl);
     window.location.href = authUrl;
   };
 
