@@ -1,0 +1,19 @@
+# Ignore compiled files
+backend/dist/
+dist/
+build/
+
+# Ignore sample code (demo purposes only)
+sample-code/
+
+# Ignore node_modules
+node_modules/
+
+# Ignore environment files
+.env*
+
+# Ignore build outputs
+*.tsbuildinfo
+
+# Ignore coverage reports
+coverage/
