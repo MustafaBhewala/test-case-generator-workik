@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "type-check": "tsc --noEmit",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "vercel-build": "vite build"
   },
   "homepage": "https://MustafaBhewala.github.io/test-case-generator-workik",
   "dependencies": {
