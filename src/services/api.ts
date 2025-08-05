@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { GitHubRepository, GitHubFile, GitHubUser, TestCaseSummary, GeneratedTestCase } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 class ApiService {
   private getHeaders(token?: string) {
@@ -25,7 +25,7 @@ class ApiService {
   }
 
   async getUserRepositories(token: string): Promise<GitHubRepository[]> {
-    const response = await axios.get(`${API_BASE_URL}/github/repos`, {
+    const response = await axios.get(`${API_BASE_URL}/repositories`, {
       headers: this.getHeaders(token),
     });
     return response.data;
