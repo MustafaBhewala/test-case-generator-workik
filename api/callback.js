@@ -8,45 +8,16 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // Log everything for debugging
     console.log('=== CALLBACK DEBUG ===');
     console.log('req.url:', req.url);
     console.log('req.query:', req.query);
-    console.log('req.method:', req.method);
     
-    // Multiple ways to get the code parameter
-    let code = null;
-    let error = null;
+    // In Vercel, query parameters are automatically parsed into req.query
+    const code = req.query?.code;
+    const error = req.query?.error;
     
-    // Method 1: req.query (Vercel should populate this)
-    if (req.query && req.query.code) {
-      code = req.query.code;
-      console.log('Code from req.query:', code);
-    }
-    
-    // Method 2: Parse URL manually
-    if (!code && req.url) {
-      const urlParams = new URLSearchParams(req.url.split('?')[1] || '');
-      code = urlParams.get('code');
-      error = urlParams.get('error');
-      console.log('Code from URLSearchParams:', code);
-      console.log('Error from URLSearchParams:', error);
-    }
-    
-    // Method 3: Try URL constructor (backup)
-    if (!code && req.url) {
-      try {
-        const fullUrl = new URL(req.url, `https://${req.headers.host}`);
-        code = fullUrl.searchParams.get('code');
-        error = fullUrl.searchParams.get('error');
-        console.log('Code from URL constructor:', code);
-      } catch (e) {
-        console.log('URL constructor failed:', e.message);
-      }
-    }
-    
-    console.log('Final code value:', code);
-    console.log('Final error value:', error);
+    console.log('Extracted code:', code ? 'YES (length: ' + code.length + ')' : 'NO');
+    console.log('Extracted error:', error || 'none');
     
     // Handle GitHub OAuth errors
     if (error) {
@@ -59,7 +30,8 @@ module.exports = async (req, res) => {
     }
     
     if (!code) {
-      console.error('No authorization code found after all parsing attempts');
+      console.error('No authorization code found');
+      console.log('Full req.query object:', JSON.stringify(req.query, null, 2));
       res.writeHead(302, { 
         Location: `https://workik-task.vercel.app/?error=no_code&description=${encodeURIComponent('No authorization code received from GitHub')}` 
       });
@@ -67,7 +39,7 @@ module.exports = async (req, res) => {
       return;
     }
 
-    console.log('Exchanging code for access token...', code.substring(0, 10) + '...');
+    console.log('SUCCESS: Found authorization code, exchanging for token...');
     
     const response = await fetch('https://github.com/login/oauth/access_token', {
       method: 'POST',
@@ -86,7 +58,7 @@ module.exports = async (req, res) => {
     console.log('Token exchange result:', { success: !!tokenData.access_token, error: tokenData.error });
     
     if (tokenData.access_token) {
-      console.log('Success! Redirecting with token...');
+      console.log('SUCCESS! Redirecting with token...');
       res.writeHead(302, { 
         Location: `https://workik-task.vercel.app/auth/callback?token=${tokenData.access_token}` 
       });
