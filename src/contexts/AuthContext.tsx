@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { GitHubUser, AuthContextType } from '../types';
-import { apiService } from '../services/api';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -15,82 +14,56 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     const storedToken = localStorage.getItem('github_token');
-    if (storedToken) {
-      setToken(storedToken);
-      fetchUser(storedToken);
+    const storedUser = localStorage.getItem('github_user');
+    
+    if (storedToken && storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        setToken(storedToken);
+        setUser(user);
+      } catch (error) {
+        console.error('Failed to parse stored user data:', error);
+        localStorage.removeItem('github_token');
+        localStorage.removeItem('github_user');
+      }
     } else {
-      // Check if we're returning from OAuth
+      // Check if we're returning from OAuth (not needed for demo, but keeping for completeness)
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code');
       
       if (code && window.location.pathname === '/auth/callback') {
-        handleOAuthCallback(code);
-      } else {
-        setIsLoading(false);
+        // For demo, just redirect to home
+        window.location.href = '/';
       }
     }
+    
+    setIsLoading(false);
   }, []);
 
-  const handleOAuthCallback = async (code: string) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/auth/github/callback`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ code }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        const { access_token, user } = data;
-        
-        localStorage.setItem('github_token', access_token);
-        setToken(access_token);
-        
-        if (user) {
-          setUser(user);
-        } else {
-          await fetchUser(access_token);
-        }
-        
-        // Redirect to repositories page
-        window.location.href = '/repositories';
-      } else {
-        throw new Error('Failed to exchange code for token');
-      }
-    } catch (error) {
-      console.error('OAuth callback error:', error);
-      window.location.href = '/?error=oauth_failed';
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const fetchUser = async (authToken: string) => {
-    try {
-      const userData = await apiService.getGitHubUser(authToken);
-      setUser(userData);
-    } catch (error) {
-      console.error('Failed to fetch user:', error);
-      localStorage.removeItem('github_token');
-      setToken(null);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const login = () => {
-    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID || 'your_github_client_id';
-    const redirectUri = `${window.location.origin}/auth/callback`;
-    const scope = 'repo user:email';
+    // For demo purposes, simulate successful login with mock data
+    const mockUser = {
+      id: 1,
+      login: 'demo-user',
+      name: 'Demo User',
+      avatar_url: 'https://github.com/github.png',
+      email: 'demo@example.com'
+    };
     
-    const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
-    window.location.href = authUrl;
+    const mockToken = 'demo-token-' + Date.now();
+    
+    setUser(mockUser);
+    setToken(mockToken);
+    localStorage.setItem('github_token', mockToken);
+    localStorage.setItem('github_user', JSON.stringify(mockUser));
+    
+    // Show a brief success message
+    console.log('Demo login successful!');
   };
 
   const logout = () => {
     localStorage.removeItem('github_token');
+    localStorage.removeItem('github_user');
     setUser(null);
     setToken(null);
   };
