@@ -37,6 +37,70 @@ A modern full-stack application that automatically generates comprehensive test 
 | Category | Technologies |
 |----------|-------------|
 | **Frontend** | React 19, TypeScript, Vite, Tailwind CSS, React Router |
+| **Backend** | Node.js, Vercel Serverless Functions |
+| **AI Integration** | Google Gemini API |
+| **Authentication** | GitHub OAuth |
+| **Styling** | Tailwind CSS, Lucide React Icons |
+| **HTTP Client** | Axios |
+| **Deployment** | Vercel (Frontend + API), GitHub Pages |
+
+## 🏗️ Project Architecture
+
+```
+test-case-generator/
+├── src/                    # Frontend source
+│   ├── components/         # React components
+│   ├── pages/             # Page components
+│   ├── contexts/          # React contexts
+│   ├── services/          # API services
+│   └── types/             # TypeScript types
+├── api/                   # Vercel serverless functions
+├── public/                # Static assets
+└── dist/                  # Build output
+```
+
+## 🎯 Supported Testing Frameworks
+
+- **JavaScript/TypeScript**: Jest, Mocha, Jasmine, Vitest
+- **Python**: pytest, unittest
+- **Java**: JUnit, TestNG
+- **C#**: NUnit, MSTest
+- **Go**: testing package
+- **Ruby**: RSpec
+- **PHP**: PHPUnit
+
+## 🔒 Copyright & License
+
+**© 2025 Mustafa Bhewala. All Rights Reserved.**
+
+This project is proprietary software developed by Mustafa Bhewala. Unauthorized copying, distribution, modification, or use of this software, in whole or in part, is strictly prohibited without explicit written permission from the author.
+
+### Usage Restrictions:
+- ❌ **No Copying**: You may not copy, clone, or reproduce this codebase
+- ❌ **No Distribution**: You may not distribute or share the source code
+- ❌ **No Commercial Use**: Commercial use is prohibited without license
+- ❌ **No Modification**: Creating derivative works is not permitted
+- ✅ **Viewing Only**: You may view the application for demonstration purposes
+
+### Contact for Licensing:
+For licensing inquiries, commercial use, or permissions, please contact:
+**Mustafa Bhewala** - [GitHub Profile](https://github.com/MustafaBhewala)
+
+---
+
+<div align="center">
+  <strong>🛡️ PROPRIETARY SOFTWARE 🛡️</strong>
+  <br />
+  <em>Built with ❤️ by Mustafa Bhewala</em>
+  <br />
+  <sub>This software is protected by copyright law and international treaties.</sub>
+</div>
+
+## 🛠️ Technology Stack
+
+| Category | Technologies |
+|----------|-------------|
+| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS, React Router |
 | **Backend** | Node.js, Express, TypeScript |
 | **AI Integration** | Google Gemini API |
 | **Authentication** | GitHub OAuth |
@@ -161,52 +225,6 @@ GITHUB_CLIENT_SECRET=your_github_client_secret
 GEMINI_API_KEY=your_gemini_api_key
 JWT_SECRET=your_jwt_secret_here
 ```
-
-### 3. Frontend Setup
-```bash
-# From root directory
-cp .env.example .env
-```
-
-Edit `.env` with your configuration:
-```env
-VITE_API_URL=http://localhost:3001/api
-VITE_GITHUB_CLIENT_ID=your_github_client_id
-```
-
-## 🏃‍♂️ Running the Application
-
-### Development Mode
-
-1. **Start the backend server:**
-```bash
-cd backend
-npm run dev
-```
-
-2. **Start the frontend (in a new terminal):**
-```bash
-npm run dev
-```
-
-3. **Access the application:**
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:3001
-
-## 🔧 Setup GitHub OAuth
-
-1. Go to GitHub Settings > Developer settings > OAuth Apps
-2. Create a new OAuth App with:
-   - **Application name**: Test Case Generator
-   - **Homepage URL**: http://localhost:5173
-   - **Authorization callback URL**: http://localhost:5173/auth/callback
-3. Copy the Client ID and Client Secret to your environment files
-
-## 🤖 Setup Google Gemini API
-
-1. Go to [Google AI Studio](https://aistudio.google.com/)
-2. Create a new API key
-3. Add the API key to your backend `.env` file
 
 ## 📱 Usage
 
