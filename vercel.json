@@ -1,5 +1,16 @@
 {
   "version": 2,
+  "functions": {
+    "api/auth.js": {
+      "runtime": "@vercel/node@18.x"
+    },
+    "api/github.js": {
+      "runtime": "@vercel/node@18.x"
+    },
+    "api/ai.js": {
+      "runtime": "@vercel/node@18.x"
+    }
+  },
   "builds": [
     {
       "src": "package.json",
@@ -7,15 +18,11 @@
       "config": {
         "distDir": "dist"
       }
-    },
-    {
-      "src": "api/*.js",
-      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/auth/(.*)",
+      "src": "/api/auth",
       "dest": "/api/auth.js"
     },
     {
