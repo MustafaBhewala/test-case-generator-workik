@@ -55,8 +55,8 @@ A modern full-stack application that automatically generates comprehensive test 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/MustafaBhewala/test-case-generator-workik.git
-   cd test-case-generator-workik
+   git clone https://github.com/MustafaBhewala/test-case-generator.git
+   cd test-case-generator
    ```
 
 2. **Install frontend dependencies**
@@ -228,14 +228,15 @@ npm run dev
 ## 🏗️ Project Structure
 
 ```
-WorkikTask/
+test-case-generator/
 ├── src/                    # Frontend source
 │   ├── components/         # React components
 │   ├── pages/             # Page components
 │   ├── contexts/          # React contexts
 │   ├── services/          # API services
 │   └── types/             # TypeScript types
-├── backend/               # Backend source
+├── api/                   # Serverless API functions
+├── backend/               # Backend source (legacy)
 │   ├── src/
 │   │   ├── routes/        # API routes
 │   │   ├── services/      # Business logic
@@ -284,19 +285,23 @@ The application demonstrates:
 
 ## 🤝 Contributing
 
-This project was created as part of the Workik AI internship assignment. For questions or improvements, please reach out to the development team.
+This project welcomes contributions from developers interested in AI-powered testing solutions. Feel free to submit issues, feature requests, or pull requests to help improve the platform.
+
+### How to Contribute:
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-MIT License - see LICENSE file for details.+ Vite
+MIT License - see LICENSE file for details.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+<div align="center">
+  <strong>Built with ❤️ by Mustafa Bhewala</strong>
+  <br />
+  <em>Empowering developers with AI-driven testing solutions</em>
+</div>

@@ -14,7 +14,7 @@
     "deploy": "gh-pages -d dist",
     "vercel-build": "vite build"
   },
-  "homepage": "https://MustafaBhewala.github.io/test-case-generator-workik",
+  "homepage": "https://MustafaBhewala.github.io/test-case-generator",
   "dependencies": {
     "autoprefixer": "^10.4.21",
     "axios": "^1.11.0",
