@@ -1,9 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "type": "commonjs",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.1"
-  }
+  "description": "API endpoints for Test Case Generator",
+  "main": "index.js",
+  "dependencies": {}
 }

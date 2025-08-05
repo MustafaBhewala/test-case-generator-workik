@@ -18,7 +18,7 @@ class ApiService {
 
   // GitHub OAuth
   async getGitHubUser(token: string): Promise<GitHubUser> {
-    const response = await axios.get(`${API_BASE_URL}/github/user`, {
+    const response = await axios.get(`${API_BASE_URL}/user`, {
       headers: this.getHeaders(token),
     });
     return response.data;
@@ -38,10 +38,10 @@ class ApiService {
     path: string = ''
   ): Promise<GitHubFile[]> {
     const response = await axios.get(
-      `${API_BASE_URL}/github/repos/${owner}/${repo}/contents`,
+      `${API_BASE_URL}/contents`,
       {
         headers: this.getHeaders(token),
-        params: { path },
+        params: { owner, repo, path },
       }
     );
     return response.data;
@@ -54,8 +54,8 @@ class ApiService {
     path: string
   ): Promise<string> {
     const response = await axios.post(
-      `${API_BASE_URL}/github/repos/${owner}/${repo}/file-content`,
-      { path },
+      `${API_BASE_URL}/file-content`,
+      { owner, repo, path },
       {
         headers: this.getHeaders(token),
       }
@@ -71,7 +71,7 @@ class ApiService {
     repo: string
   ): Promise<{ summaries: TestCaseSummary[]; processedFiles: number; totalFiles: number }> {
     const response = await axios.post(
-      `${API_BASE_URL}/ai/generate-summaries`,
+      `${API_BASE_URL}/generate-summaries`,
       { files, owner, repo },
       {
         headers: this.getHeaders(token),
@@ -88,7 +88,7 @@ class ApiService {
     repo: string
   ): Promise<GeneratedTestCase> {
     const response = await axios.post(
-      `${API_BASE_URL}/ai/generate-test-code`,
+      `${API_BASE_URL}/generate-test-code`,
       { summary, files, owner, repo },
       {
         headers: this.getHeaders(token),
@@ -108,8 +108,10 @@ class ApiService {
     branchName?: string
   ) {
     const response = await axios.post(
-      `${API_BASE_URL}/github/repos/${owner}/${repo}/pull-request`,
+      `${API_BASE_URL}/create-pull-request`,
       {
+        owner,
+        repo,
         title,
         body,
         testFiles,

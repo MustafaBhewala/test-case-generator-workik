@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Search, Book, Calendar, GitBranch, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { apiService } from '../services/api';
@@ -12,6 +12,11 @@ export function RepositoriesPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState<string | null>(null);
+
+  // Redirect to home if not authenticated
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
 
   useEffect(() => {
     if (token) {
@@ -110,12 +115,16 @@ export function RepositoriesPage() {
             </p>
           </div>
         ) : (
-          filteredRepos.map((repo) => (
-            <Link
-              key={repo.id}
-              to={`/repository/${repo.owner.login}/${repo.name}`}
-              className="block bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-blue-500 hover:shadow-md transition-all"
-            >
+          filteredRepos.map((repo) => {
+            // Extract owner from full_name (format: "owner/repo")
+            const owner = repo.full_name.split('/')[0];
+            
+            return (
+              <Link
+                key={repo.id}
+                to={`/repository/${owner}/${repo.name}`}
+                className="block bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-blue-500 hover:shadow-md transition-all"
+              >
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center space-x-2 mb-2">
@@ -152,7 +161,8 @@ export function RepositoriesPage() {
                 </div>
               </div>
             </Link>
-          ))
+            );
+          })
         )}
       </div>
     </div>

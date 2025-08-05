@@ -33,7 +33,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const handleOAuthCallback = async (code: string) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/auth/github/callback`, {
+      const response = await fetch('/api/callback', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

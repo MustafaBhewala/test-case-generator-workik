@@ -7,7 +7,7 @@ export interface GitHubRepository {
   description: string | null;
   language: string | null;
   updated_at: string;
-  owner: {
+  owner?: {
     login: string;
     avatar_url: string;
   };
@@ -31,6 +31,7 @@ export interface TestCaseSummary {
   complexity: 'low' | 'medium' | 'high';
   estimatedLines: number;
   dependencies: string[];
+  filePath?: string;
 }
 
 export interface GeneratedTestCase {
