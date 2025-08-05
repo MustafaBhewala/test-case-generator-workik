@@ -7,15 +7,13 @@
       "config": {
         "distDir": "dist"
       }
-    },
-    {
-      "src": "backend/src/index.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["backend/src/**"]
-      }
     }
   ],
+  "functions": {
+    "backend/src/index.ts": {
+      "runtime": "@vercel/node@3.0.7"
+    }
+  },
   "routes": [
     {
       "src": "/api/(.*)",
@@ -26,9 +24,6 @@
       "dest": "/index.html"
     }
   ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "installCommand": "npm install && cd backend && npm install",
-  "buildCommand": "npm run build && cd backend && npm run build"
+  "installCommand": "npm install",
+  "buildCommand": "npm run build"
 }
