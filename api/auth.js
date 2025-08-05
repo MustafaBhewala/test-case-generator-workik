@@ -12,6 +12,8 @@ module.exports = async (req, res) => {
   try {
     const clientId = process.env.GITHUB_CLIENT_ID;
     
+    console.log('Auth endpoint called - Client ID available:', !!clientId);
+    
     if (!clientId) {
       return res.status(500).json({ 
         error: 'GitHub client ID not configured',
@@ -24,6 +26,7 @@ module.exports = async (req, res) => {
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}`;
     
     console.log('Redirecting to GitHub OAuth:', githubAuthUrl);
+    console.log('Expected callback URL:', redirectUri);
     
     res.writeHead(302, { Location: githubAuthUrl });
     res.end();
