@@ -6,8 +6,11 @@ export function AuthCallbackPage() {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
+    const token = searchParams.get('token');
     const code = searchParams.get('code');
     const error = searchParams.get('error');
+
+    console.log('🔧 AuthCallback - Received params:', { token: !!token, code: !!code, error });
 
     if (error) {
       console.error('OAuth error:', error);
@@ -15,10 +18,19 @@ export function AuthCallbackPage() {
       return;
     }
 
+    // If we have a token (from API callback), use it directly
+    if (token) {
+      console.log('🎉 Got token from API, storing and redirecting...');
+      localStorage.setItem('github_token', token);
+      navigate('/repositories');
+      return;
+    }
+
+    // If we have a code (old flow), exchange it
     if (code) {
-      // Exchange code for access token
       exchangeCodeForToken(code);
     } else {
+      console.error('No token or code received');
       navigate('/?error=no_code');
     }
   }, [searchParams, navigate]);
